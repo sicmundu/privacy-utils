@@ -151,7 +151,7 @@ export function reconstructSecret(shares: SecretShare[]): Uint8Array | null {
  * Modular inverse using Extended Euclidean Algorithm
  */
 function modInverse(a: number, m: number): number {
-  let m0 = m;
+  const m0 = m;
   let y = 0;
   let x = 1;
 
