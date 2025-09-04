@@ -45,6 +45,6 @@ export async function deriveKeyFromPassword(
  */
 export function generateSalt(length: number = 32): Uint8Array {
   const salt = new Uint8Array(length);
-  crypto.getRandomValues(salt);
+  globalThis.crypto.getRandomValues(salt);
   return salt;
 }

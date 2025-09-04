@@ -23,10 +23,10 @@ export async function encrypt(
 
   // Generate random nonce (96 bits = 12 bytes is recommended for GCM)
   const nonce = new Uint8Array(12);
-  crypto.getRandomValues(nonce);
+  globalThis.crypto.getRandomValues(nonce);
 
   // Import key for WebCrypto
-  const cryptoKey = await crypto.subtle.importKey(
+  const cryptoKey = await globalThis.crypto.subtle.importKey(
     'raw',
     key as unknown as ArrayBuffer,
     { name: 'AES-GCM', length: 256 },
@@ -38,7 +38,7 @@ export async function encrypt(
   const additionalData = associatedData ?? new Uint8Array(0);
 
   // Encrypt
-  const encrypted = await crypto.subtle.encrypt(
+  const encrypted = await globalThis.crypto.subtle.encrypt(
     {
       name: 'AES-GCM',
       iv: nonce as unknown as ArrayBuffer,
@@ -84,7 +84,7 @@ export async function decrypt(
   }
 
   // Import key for WebCrypto
-  const cryptoKey = await crypto.subtle.importKey(
+  const cryptoKey = await globalThis.crypto.subtle.importKey(
     'raw',
     key as unknown as ArrayBuffer,
     { name: 'AES-GCM', length: 256 },
@@ -102,7 +102,7 @@ export async function decrypt(
 
   try {
     // Decrypt
-    const decrypted = await crypto.subtle.decrypt(
+    const decrypted = await globalThis.crypto.subtle.decrypt(
           {
       name: 'AES-GCM',
       iv: nonce as unknown as ArrayBuffer,
@@ -123,7 +123,7 @@ export async function decrypt(
  */
 export function generateKey(): Uint8Array {
   const key = new Uint8Array(32); // 256 bits
-  crypto.getRandomValues(key);
+  globalThis.crypto.getRandomValues(key);
   return key;
 }
 

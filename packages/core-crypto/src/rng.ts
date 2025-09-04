@@ -12,7 +12,7 @@ export function randomBytes(length: number): Uint8Array {
   }
 
   const array = new Uint8Array(length);
-  crypto.getRandomValues(array);
+  globalThis.crypto.getRandomValues(array);
   return array;
 }
 
@@ -21,7 +21,7 @@ export function randomBytes(length: number): Uint8Array {
  */
 export function random(): number {
   const array = new Uint8Array(4);
-  crypto.getRandomValues(array);
+  globalThis.crypto.getRandomValues(array);
 
   // Convert 4 bytes to a number between 0 and 1
   // Using the same approach as Math.random() but with secure randomness

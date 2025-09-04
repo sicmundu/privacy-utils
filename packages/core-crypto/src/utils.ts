@@ -143,7 +143,7 @@ export function randomString(length: number, charset: string = 'abcdefghijklmnop
 
   while (result.length < length) {
     const randomBytes = new Uint8Array(Math.min(length - result.length, 256));
-    crypto.getRandomValues(randomBytes);
+    globalThis.crypto.getRandomValues(randomBytes);
 
     for (const byte of randomBytes) {
       if (result.length >= length) break;

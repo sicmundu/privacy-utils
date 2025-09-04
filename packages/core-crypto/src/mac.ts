@@ -13,7 +13,7 @@ export async function computeHmac(
   message: Uint8Array,
   hashFunction: HashFunction = 'SHA-256'
 ): Promise<Uint8Array> {
-  const cryptoKey = await crypto.subtle.importKey(
+  const cryptoKey = await globalThis.crypto.subtle.importKey(
     'raw',
     key as unknown as ArrayBuffer,
     { name: 'HMAC', hash: hashFunction },
@@ -21,7 +21,7 @@ export async function computeHmac(
     ['sign']
   );
 
-  const signature = await crypto.subtle.sign('HMAC', cryptoKey, message as unknown as ArrayBuffer);
+  const signature = await globalThis.crypto.subtle.sign('HMAC', cryptoKey, message as unknown as ArrayBuffer);
   return new Uint8Array(signature);
 }
 
@@ -54,7 +54,7 @@ export async function verifyHmac(
  */
 export function generateHmacKey(length: number = 32): Uint8Array {
   const key = new Uint8Array(length);
-  crypto.getRandomValues(key);
+  globalThis.crypto.getRandomValues(key);
   return key;
 }
 
@@ -72,7 +72,7 @@ export async function hkdfExtract(
     salt = new Uint8Array(hashLen);
   }
 
-  const cryptoKey = await crypto.subtle.importKey(
+  const cryptoKey = await globalThis.crypto.subtle.importKey(
     'raw',
     salt as unknown as ArrayBuffer,
     { name: 'HMAC', hash: hashFunction },
@@ -80,6 +80,6 @@ export async function hkdfExtract(
     ['sign']
   );
 
-  const signature = await crypto.subtle.sign('HMAC', cryptoKey, inputKeyMaterial as unknown as ArrayBuffer);
+  const signature = await globalThis.crypto.subtle.sign('HMAC', cryptoKey, inputKeyMaterial as unknown as ArrayBuffer);
   return new Uint8Array(signature);
 }
