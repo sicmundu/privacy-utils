@@ -3,6 +3,9 @@
  * Uses AES-GCM via WebCrypto API for secure encryption
  */
 
+// Ensure crypto is available in Node.js environments
+const cryptoAPI = globalThis.crypto || require('crypto').webcrypto;
+
 export interface AeadResult {
   ciphertext: Uint8Array;
   tag: Uint8Array;
@@ -23,10 +26,10 @@ export async function encrypt(
 
   // Generate random nonce (96 bits = 12 bytes is recommended for GCM)
   const nonce = new Uint8Array(12);
-  globalThis.crypto.getRandomValues(nonce);
+  cryptoAPI.getRandomValues(nonce);
 
   // Import key for WebCrypto
-  const cryptoKey = await globalThis.crypto.subtle.importKey(
+  const cryptoKey = await cryptoAPI.subtle.importKey(
     'raw',
     key as unknown as ArrayBuffer,
     { name: 'AES-GCM', length: 256 },
@@ -38,7 +41,7 @@ export async function encrypt(
   const additionalData = associatedData ?? new Uint8Array(0);
 
   // Encrypt
-  const encrypted = await globalThis.crypto.subtle.encrypt(
+  const encrypted = await cryptoAPI.subtle.encrypt(
     {
       name: 'AES-GCM',
       iv: nonce as unknown as ArrayBuffer,
@@ -84,7 +87,7 @@ export async function decrypt(
   }
 
   // Import key for WebCrypto
-  const cryptoKey = await globalThis.crypto.subtle.importKey(
+  const cryptoKey = await cryptoAPI.subtle.importKey(
     'raw',
     key as unknown as ArrayBuffer,
     { name: 'AES-GCM', length: 256 },
@@ -102,7 +105,7 @@ export async function decrypt(
 
   try {
     // Decrypt
-    const decrypted = await globalThis.crypto.subtle.decrypt(
+    const decrypted = await cryptoAPI.subtle.decrypt(
           {
       name: 'AES-GCM',
       iv: nonce as unknown as ArrayBuffer,
@@ -123,7 +126,7 @@ export async function decrypt(
  */
 export function generateKey(): Uint8Array {
   const key = new Uint8Array(32); // 256 bits
-  globalThis.crypto.getRandomValues(key);
+  cryptoAPI.getRandomValues(key);
   return key;
 }
 

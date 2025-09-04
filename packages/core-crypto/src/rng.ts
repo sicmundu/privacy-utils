@@ -1,7 +1,9 @@
 /**
  * Secure Random Number Generation
- * Uses crypto.getRandomValues() for cross-platform compatibility
+ * Uses Node.js crypto.randomBytes() for Node.js compatibility
  */
+
+import { randomBytes as nodeRandomBytes } from 'crypto';
 
 /**
  * Generate cryptographically secure random bytes
@@ -11,21 +13,20 @@ export function randomBytes(length: number): Uint8Array {
     throw new Error('Length must be between 0 and 65536');
   }
 
-  const array = new Uint8Array(length);
-  globalThis.crypto.getRandomValues(array);
-  return array;
+  // Use Node.js crypto for better compatibility
+  return new Uint8Array(nodeRandomBytes(length));
 }
 
 /**
  * Generate a cryptographically secure random number between 0 and 1
  */
 export function random(): number {
-  const array = new Uint8Array(4);
-  globalThis.crypto.getRandomValues(array);
+  // Use Node.js crypto to get 4 random bytes
+  const buffer = nodeRandomBytes(4);
 
   // Convert 4 bytes to a number between 0 and 1
   // Using the same approach as Math.random() but with secure randomness
-  const view = new DataView(array.buffer);
+  const view = new DataView(buffer.buffer);
   const randomValue = view.getUint32(0, true) / 0x100000000;
 
   return randomValue;

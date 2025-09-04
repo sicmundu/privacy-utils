@@ -5,6 +5,7 @@
 
 import { pbkdf2 } from '@noble/hashes/pbkdf2';
 import { sha256, sha384, sha512 } from '@noble/hashes/sha2';
+import { randomBytes as nodeRandomBytes } from 'crypto';
 
 export type KdfHashFunction = 'SHA-256' | 'SHA-384' | 'SHA-512';
 
@@ -44,7 +45,5 @@ export async function deriveKeyFromPassword(
  * Generate a random salt for key derivation
  */
 export function generateSalt(length: number = 32): Uint8Array {
-  const salt = new Uint8Array(length);
-  globalThis.crypto.getRandomValues(salt);
-  return salt;
+  return new Uint8Array(nodeRandomBytes(length));
 }
