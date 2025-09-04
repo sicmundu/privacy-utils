@@ -1,0 +1,21 @@
+{
+  "name": "privacy-utils-sa-example",
+  "version": "0.1.0",
+  "description": "Example usage of Privacy Utils Secure Aggregation",
+  "main": "server.ts",
+  "type": "module",
+  "scripts": {
+    "server": "tsx server.ts",
+    "client": "tsx client.ts",
+    "dev:server": "tsx --watch server.ts",
+    "dev:client": "tsx --watch client.ts"
+  },
+  "dependencies": {
+    "privacy-utils-secure-agg": "workspace:*",
+    "privacy-utils-core-crypto": "workspace:*",
+    "ws": "^8.0.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.0.0"
+  }
+}
