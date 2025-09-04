@@ -35,7 +35,7 @@ export async function encrypt(
   );
 
   // Prepare additional data
-  const additionalData = associatedData || new Uint8Array(0);
+  const additionalData = associatedData ?? new Uint8Array(0);
 
   // Encrypt
   const encrypted = await crypto.subtle.encrypt(
@@ -98,7 +98,7 @@ export async function decrypt(
   encrypted.set(tag, ciphertext.length);
 
   // Prepare additional data
-  const additionalData = associatedData || new Uint8Array(0);
+  const additionalData = associatedData ?? new Uint8Array(0);
 
   try {
     // Decrypt
@@ -113,7 +113,7 @@ export async function decrypt(
     );
 
     return new Uint8Array(decrypted);
-  } catch (error) {
+  } catch {
     throw new Error('Decryption failed: invalid key, nonce, or authentication tag');
   }
 }

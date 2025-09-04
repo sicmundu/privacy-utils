@@ -1,6 +1,6 @@
 # Privacy Utils
 
-[![CI](https://github.com/privacy-utils/privacy-utils/workflows/CI/badge.svg)](https://github.com/privacy-utils/privacy-utils/actions)
+[![CI](https://github.com/privacy-utils/privacy-utils/workflows/CI/badge.svg)](https://github.com/sicmundu/privacy-utils/actions)
 [![npm version](https://img.shields.io/npm/v/privacy-utils-core-crypto.svg)](https://www.npmjs.com/package/privacy-utils-core-crypto)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.5+-blue.svg)](https://www.typescriptlang.org/)
