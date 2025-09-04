@@ -76,7 +76,7 @@ export default [
       'no-debugger': 'error',
       'prefer-const': 'error',
       'no-var': 'error',
-      'object-shorthand': 'error',
+      'object-shorthand': 'warn',
       'prefer-arrow-callback': 'error',
     },
   },
