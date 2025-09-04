@@ -195,8 +195,9 @@ export async function verifyEphemeralAuthentication(
 
     // Verify challenge in clientDataJSON
     const clientData = JSON.parse(new TextDecoder().decode(clientDataJSON));
-    // Simplified challenge verification - in real implementation would need proper decoding
-    const challengeMatch = true;
+    // Basic challenge verification - compare with provided challenge
+    const expectedChallenge = btoa(String.fromCharCode(...challenge));
+    const challengeMatch = clientData.challenge === expectedChallenge;
     console.log('Client data parsed:', clientData);
 
     return isValid && challengeMatch;

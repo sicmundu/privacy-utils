@@ -57,10 +57,15 @@ async function applyBlinding(
     rounds
   );
 
+  // Ensure blinding mask has correct length
+  if (blindingMask.length < input.length) {
+    throw new Error('Blinding mask length is insufficient');
+  }
+
   // Apply blinding: blinded = input ⊕ blindingMask
   const blinded = new Uint8Array(input.length);
   for (let i = 0; i < input.length; i++) {
-    blinded[i] = input[i] ^ (blindingMask[i] ?? 0);
+    blinded[i] = (input[i] ?? 0) ^ (blindingMask[i] ?? 0);
   }
 
   return blinded;
@@ -84,10 +89,15 @@ async function removeBlinding(
     rounds
   );
 
+  // Ensure blinding mask has correct length
+  if (blindingMask.length < response.length) {
+    throw new Error('Blinding mask length is insufficient');
+  }
+
   // Remove blinding: unblinded = response ⊕ blindingMask
   const unblinded = new Uint8Array(response.length);
   for (let i = 0; i < response.length; i++) {
-    unblinded[i] = response[i] ^ (blindingMask[i] ?? 0);
+    unblinded[i] = (response[i] ?? 0) ^ (blindingMask[i] ?? 0);
   }
 
   return unblinded;

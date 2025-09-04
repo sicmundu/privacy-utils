@@ -29,7 +29,7 @@ export async function generatePairwiseMask(
 
   for (let i = 0; i < vector.length; i++) {
     // Simple PRG: combine seed with index and peer info
-    const peerCode = typeof peerId === 'string' ? peerId.charCodeAt(i % peerId.length) : peerId.length;
+    const peerCode = typeof peerId === 'string' ? peerId.charCodeAt(i % peerId.length) : (peerId as number);
     const combined = seedValue + i + peerCode;
     mask[i] = Math.sin(combined) * 1000; // Generate pseudo-random float
     seedValue = (seedValue * 1103515245 + 12345) % 2147483648; // Linear congruential generator
@@ -48,7 +48,7 @@ export function applyMask(vector: Float64Array, mask: Float64Array): Float64Arra
 
   const result = new Float64Array(vector.length);
   for (let i = 0; i < vector.length; i++) {
-    result[i] = vector[i] + (mask[i] ?? 0);
+    result[i] = (vector[i] ?? 0) + (mask[i] ?? 0);
   }
   return result;
 }
@@ -63,7 +63,7 @@ export function removeMask(vector: Float64Array, mask: Float64Array): Float64Arr
 
   const result = new Float64Array(vector.length);
   for (let i = 0; i < vector.length; i++) {
-    result[i] = vector[i] - (mask[i] ?? 0);
+    result[i] = (vector[i] ?? 0) - (mask[i] ?? 0);
   }
   return result;
 }
@@ -155,10 +155,19 @@ export function aggregateVectors(vectors: Float64Array[]): Float64Array {
     throw new Error('Cannot aggregate empty vector list');
   }
 
-  let result = new Float64Array(vectors[0].buffer.slice(0));
+  const firstVector = vectors[0];
+  if (!firstVector) {
+    throw new Error('First vector is undefined');
+  }
+
+  let result = new Float64Array(firstVector.buffer.slice(0));
 
   for (let i = 1; i < vectors.length; i++) {
-    result = addVectors(result, vectors[i]);
+    const currentVector = vectors[i];
+    if (!currentVector) {
+      throw new Error(`Vector at index ${i} is undefined`);
+    }
+    result = addVectors(result, currentVector);
   }
 
   return result;

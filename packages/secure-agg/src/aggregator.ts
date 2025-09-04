@@ -3,7 +3,7 @@
  * Server-side coordinator for secure multi-party aggregation
  */
 
-import WebSocket from 'ws';
+import { WebSocketServer, WebSocket } from 'ws';
 import { reconstructSecret } from './secrets';
 import { aggregateVectors } from './masking';
 import type {
@@ -16,7 +16,7 @@ import type {
 
 export class SecureAggregationAggregator {
   private config: AggregatorConfig;
-  private server: WebSocket.Server;
+  private server: WebSocketServer;
   private state: AggregatorState;
   private clients: Map<SecureAggClientId, WebSocket> = new Map();
   private messageHandlers: Map<string, (ws: WebSocket, message: ProtocolMessage) => void> = new Map();
@@ -24,7 +24,7 @@ export class SecureAggregationAggregator {
   constructor(config: AggregatorConfig) {
     this.config = config;
     this.state = this.createInitialState();
-    this.server = new WebSocket.Server({
+    this.server = new WebSocketServer({
       host: config.host,
       port: config.port,
       maxPayload: 1024 * 1024, // 1MB max payload
