@@ -1,7 +1,10 @@
 /**
  * Key Derivation Functions
- * Uses WebCrypto PBKDF2 for secure key derivation
+ * Uses @noble/hashes PBKDF2 for secure key derivation
  */
+
+import { pbkdf2 } from '@noble/hashes/pbkdf2';
+import { sha256, sha384, sha512 } from '@noble/hashes/sha2';
 
 export type KdfHashFunction = 'SHA-256' | 'SHA-384' | 'SHA-512';
 
@@ -15,26 +18,12 @@ export async function deriveKey(
   hashFunction: KdfHashFunction = 'SHA-256',
   iterations: number = 100000
 ): Promise<Uint8Array> {
-  const cryptoKey = await crypto.subtle.importKey(
-    'raw',
-    inputKeyMaterial as unknown as ArrayBuffer,
-    { name: 'PBKDF2' },
-    false,
-    ['deriveBits']
-  );
+  const hashFn = hashFunction === 'SHA-256' ? sha256 :
+                hashFunction === 'SHA-384' ? sha384 :
+                sha512;
 
-  const derivedBits = await crypto.subtle.deriveBits(
-    {
-      name: 'PBKDF2',
-      salt: salt as unknown as ArrayBuffer,
-      iterations: iterations,
-      hash: hashFunction,
-    },
-    cryptoKey,
-    outputLength * 8 // Convert bytes to bits
-  );
-
-  return new Uint8Array(derivedBits);
+  const derived = pbkdf2(hashFn, inputKeyMaterial, salt, { c: iterations, dkLen: outputLength });
+  return derived;
 }
 
 /**

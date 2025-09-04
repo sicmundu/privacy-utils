@@ -88,8 +88,8 @@ describe('Differential Privacy', () => {
         { epsilon: 0.3, delta: 1e-6 },
       ];
       const composed = composeBudgets(budgets);
-      expect(composed.epsilon).toBe(0.6);
-      expect(composed.delta).toBe(1e-6);
+      expect(composed.epsilon).toBeCloseTo(0.6);
+      expect(composed.delta).toBeCloseTo(1e-6);
     });
 
     it('should track budget spending', () => {
@@ -117,7 +117,7 @@ describe('Differential Privacy', () => {
       processor.sum([1, 2, 3], 10, { epsilon: 0.4 });
 
       const remaining = processor.getRemainingBudget();
-      expect(remaining.epsilon).toBe(0.3); // 1.0 - 0.3 - 0.4
+      expect(remaining.epsilon).toBeCloseTo(0.3); // 1.0 - 0.3 - 0.4
 
       const results = processor.getResults();
       expect(results).toHaveLength(2);

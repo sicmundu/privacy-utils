@@ -52,11 +52,10 @@ describe('Core Crypto', () => {
   });
 
   describe('KDF', () => {
-    it('should derive key', () => {
+    it('should derive key', async () => {
       const inputKey = new Uint8Array(32);
       const salt = generateSalt();
-      const info = new TextEncoder().encode('test');
-      const derived = deriveKey(inputKey, salt, info, 32);
+      const derived = await deriveKey(inputKey, salt, 32);
       expect(derived).toBeInstanceOf(Uint8Array);
       expect(derived.length).toBe(32);
     });
@@ -69,21 +68,21 @@ describe('Core Crypto', () => {
   });
 
   describe('MAC', () => {
-    it('should compute and verify HMAC', () => {
+    it('should compute and verify HMAC', async () => {
       const key = new Uint8Array(32);
       const message = new TextEncoder().encode('test message');
-      const mac = computeHmac(key, message);
-      const isValid = verifyHmac(key, message, mac);
+      const mac = await computeHmac(key, message);
+      const isValid = await verifyHmac(key, message, mac);
       expect(isValid).toBe(true);
     });
 
-    it('should reject invalid HMAC', () => {
+    it('should reject invalid HMAC', async () => {
       const key = new Uint8Array(32);
       const message = new TextEncoder().encode('test message');
-      const mac = computeHmac(key, message);
+      const mac = await computeHmac(key, message);
       const invalidMac = new Uint8Array(mac.length);
       invalidMac[0] = 255; // Change first byte
-      const isValid = verifyHmac(key, message, invalidMac);
+      const isValid = await verifyHmac(key, message, invalidMac);
       expect(isValid).toBe(false);
     });
   });
