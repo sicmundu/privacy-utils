@@ -7,34 +7,34 @@
 
 A modular TypeScript library for implementing privacy-preserving technologies in web applications. Provides differential privacy, secure aggregation, and anonymous authentication primitives with a focus on security, performance, and developer experience.
 
-## ✨ Features
+## Features
 
-### 🔒 Differential Privacy (`privacy-utils-dp`)
+### Differential Privacy (`privacy-utils-dp`)
 - **Noise Mechanisms**: Laplace, Gaussian, and Discrete Gaussian mechanisms
 - **Privacy Budget Management**: Advanced composition, tracking, and validation
 - **Ready-to-Use Tasks**: Count, sum, mean, histogram with automatic noise injection
 - **Flexible Budget Control**: Epsilon-delta privacy guarantees with composition support
 
-### 🔐 Secure Aggregation (`privacy-utils-secure-agg`)
+### Secure Aggregation (`privacy-utils-secure-agg`)
 - **Pairwise Masking**: Deterministic masking with shared secrets
 - **Dropout Tolerance**: Shamir's secret sharing for client failure recovery
 - **WebSocket Integration**: Real-time aggregation protocols
 - **Multi-Party Computation**: Secure federated learning primitives
 
-### 🕵️ Anonymous Authentication (`privacy-utils-anon-auth`)
+### Anonymous Authentication (`privacy-utils-anon-auth`)
 - **VOPRF Tokens**: Verifiable oblivious pseudorandom functions for token issuance
 - **Blind Hashes**: Privacy-preserving hash verification without revealing inputs
 - **WebAuthn Ephemeral**: One-time WebAuthn keys for anonymous sessions
 - **Rate Limiting**: Built-in protection against abuse
 
-### 🔧 Core Cryptography (`privacy-utils-core-crypto`)
+### Core Cryptography (`privacy-utils-core-crypto`)
 - **Web Crypto API**: Native browser/Node.js cryptographic primitives
 - **Key Derivation**: HKDF with configurable parameters
 - **Message Authentication**: HMAC with multiple hash functions
 - **Authenticated Encryption**: AEAD with GCM mode
 - **Secure Random**: Cryptographically secure random number generation
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Installation
 
@@ -101,7 +101,7 @@ const serverResponse = await processBlindHash(blindHash.blindedInput, serverKey)
 const isValid = await verifyBlindHash(blindHash, serverResponse, serverKey);
 ```
 
-## 📦 Packages
+## Packages
 
 | Package | Description | Size |
 |---------|-------------|------|
@@ -111,7 +111,7 @@ const isValid = await verifyBlindHash(blindHash, serverResponse, serverKey);
 | `privacy-utils-anon-auth` | Anonymous Authentication helpers | ~14.6 KB |
 | `privacy-utils-utils` | Mathematical utilities | ~1.7 KB |
 
-## 🏗️ Architecture
+## Architecture
 
 ```
 privacy-utils/
@@ -130,7 +130,7 @@ privacy-utils/
 └── .github/                # CI/CD workflows
 ```
 
-## 🔒 Security
+## Security
 
 Privacy Utils prioritizes security through:
 
@@ -144,7 +144,7 @@ Privacy Utils prioritizes security through:
 
 This project uses automated security scanning and dependency analysis. All cryptographic implementations follow industry best practices and are regularly updated.
 
-## 🧪 Testing
+## Testing
 
 ```bash
 # Run all tests
@@ -160,7 +160,7 @@ pnpm test -- --watch
 pnpm test:browser
 ```
 
-## 📚 Documentation
+## Documentation
 
 ### API Reference
 - [Core Crypto API](packages/core-crypto/README.md)
@@ -173,7 +173,7 @@ pnpm test:browser
 - [Integration Guides](docs/guides/)
 - [Security Best Practices](docs/security/)
 
-## 🛠️ Development
+## Development
 
 ### Prerequisites
 - Node.js 18+
@@ -206,7 +206,7 @@ pnpm test
 pnpm dev
 ```
 
-## 🤝 Contributing
+## Contributing
 
 We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
 
@@ -217,18 +217,18 @@ We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) f
 - **Testing**: Additional test cases and browser compatibility
 - **Security**: Security audits and vulnerability research
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - Built with [Turbo](https://turbo.build/) for fast builds
 - Uses [Vitest](https://vitest.dev/) for testing
 - Powered by [TypeScript](https://www.typescriptlang.org/)
 - Cryptography provided by [@noble](https://github.com/paulmillr/noble-curves)
 
-## 📞 Support
+## Support
 
 - **Issues**: [GitHub Issues](https://github.com/privacy-utils/privacy-utils/issues)
 - **Discussions**: [GitHub Discussions](https://github.com/privacy-utils/privacy-utils/discussions)
@@ -236,4 +236,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-**Privacy Utils** - Making privacy-preserving technologies accessible to every developer. 🔒✨
+**Privacy Utils** - Making privacy-preserving technologies accessible to every developer.
