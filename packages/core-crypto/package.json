@@ -1,6 +1,6 @@
 {
   "name": "privacy-utils-core-crypto",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Core cryptographic primitives for privacy-utils",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -12,7 +12,9 @@
       "require": "./dist/index.cjs"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",

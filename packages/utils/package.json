@@ -1,6 +1,6 @@
 {
   "name": "privacy-utils-utils",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Mathematical and statistical utilities",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -12,7 +12,9 @@
       "require": "./dist/index.cjs"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",

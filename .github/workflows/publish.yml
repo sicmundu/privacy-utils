@@ -1,24 +1,21 @@
-name: Release
+name: Publish Packages
 
 on:
-  push:
-    tags:
-      - 'v*'
   workflow_dispatch:
     inputs:
-      publish:
-        description: 'Publish packages to npm'
+      packages:
+        description: 'Packages to publish (comma-separated, empty for all)'
         required: false
-        default: true
-        type: boolean
+        default: ''
+        type: string
 
 permissions:
-  contents: write
+  contents: read
   packages: write
   id-token: write
 
 jobs:
-  release:
+  publish:
     runs-on: ubuntu-latest
 
     steps:
@@ -50,13 +47,16 @@ jobs:
       env:
         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-    - name: Create Release Pull Request or Publish to npm
-      id: changesets
-      uses: changesets/action@v1
-      with:
-        publish: pnpm run release
-        commit: 'chore: version packages'
-        title: 'chore: version packages'
+    - name: Publish packages
+      run: |
+        if [ -z "${{ github.event.inputs.packages }}" ]; then
+          echo "Publishing all packages..."
+          pnpm changeset publish --no-git-tag
+        else
+          echo "Publishing specific packages: ${{ github.event.inputs.packages }}"
+          # Here you could add logic to publish specific packages
+          pnpm changeset publish --no-git-tag
+        fi
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
