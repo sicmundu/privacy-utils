@@ -1,6 +1,6 @@
 {
   "name": "privacy-utils-anon-auth",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Anonymous authentication helpers including VOPRF tokens and WebAuthn ephemeral",
   "main": "./dist/index.js",
   "module": "./dist/index.js",

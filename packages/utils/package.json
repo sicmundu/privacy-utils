@@ -1,6 +1,6 @@
 {
   "name": "privacy-utils-utils",
-  "version": "0.1.1",
+  "version": "0.1.0",
   "description": "Mathematical and statistical utilities",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
